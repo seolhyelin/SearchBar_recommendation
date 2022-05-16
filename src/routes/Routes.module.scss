@@ -2,6 +2,115 @@
 
 .app {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  height: 100vh;
+  padding: 0 20px 300px;
+  background-color: colors.$BACKGROUND;
+
+  .title {
+    margin-bottom: 20px;
+    font-size: 2.125rem;
+    font-weight: 700;
+    line-height: 1.6;
+    text-align: center;
+    letter-spacing: -0.018em;
+  }
+
+  .container {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 660px;
+    margin: 0 20px;
+
+    .searchIcon {
+      width: 20px;
+      height: 20px;
+    }
+
+    .searchWrap {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.6;
+      letter-spacing: -0.018em;
+      background-color: colors.$WHITE;
+      border-radius: 42px;
+
+      form {
+        display: flex;
+        flex: 1;
+        flex-direction: row;
+        align-items: center;
+        -webkit-box-align: center;
+        padding: 20px 24px;
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 1.6;
+        letter-spacing: -0.018em;
+
+        input {
+          flex: 1;
+          min-width: 0;
+          margin-left: 12px;
+          background-color: transparent;
+          border: 0;
+        }
+      }
+
+      .searchBtn {
+        padding: 18px 32px;
+        font-size: 1.125rem;
+        font-weight: 700;
+        line-height: 1.6;
+        color: colors.$WHITE;
+        letter-spacing: -0.018em;
+        cursor: pointer;
+        background-color: #007be9;
+        border-top-right-radius: 42px;
+        border-bottom-right-radius: 42px;
+      }
+    }
+
+    .resultWrap {
+      position: absolute;
+      top: 73px;
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding: 24px 24px 16px;
+      background-color: rgb(255, 255, 255);
+      border-radius: 20px;
+
+      .searchTitle {
+        font-size: 13px;
+        font-weight: 400;
+        line-height: 1.6;
+        color: rgb(106, 115, 123);
+        letter-spacing: -0.018em;
+      }
+
+      .resultList {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        -webkit-box-align: center;
+        padding: 8px 0;
+        cursor: pointer;
+
+        .recommendItem {
+          flex: 1 1 0%;
+          margin-left: 12px;
+          font-size: 1rem;
+          font-weight: 400;
+          line-height: 1.6;
+          letter-spacing: -0.018em;
+        }
+      }
+    }
+  }
 }
