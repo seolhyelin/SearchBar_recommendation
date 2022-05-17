@@ -57,6 +57,7 @@
           flex: 1;
           min-width: 0;
           margin-left: 12px;
+          font-size: 18px;
           background-color: transparent;
           border: 0;
         }
@@ -86,8 +87,8 @@
       background-color: rgb(255, 255, 255);
       border-radius: 20px;
 
-      .searchTitle {
-        font-size: 13px;
+      .resultTitle {
+        font-size: 15px;
         font-weight: 400;
         line-height: 1.6;
         color: rgb(106, 115, 123);
@@ -105,7 +106,7 @@
         .recommendItem {
           flex: 1 1 0%;
           margin-left: 12px;
-          font-size: 1rem;
+          font-size: 1.2rem;
           font-weight: 400;
           line-height: 1.6;
           letter-spacing: -0.018em;

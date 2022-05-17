@@ -1,25 +1,38 @@
-import { useEffect, useState } from 'react'
-import { useMount } from 'react-use'
-
-import { ISearchData } from '../types/search.d'
+import { useState, ChangeEvent } from 'react'
+import { useQuery } from 'react-query'
 
 import styles from './Routes.module.scss'
 import { BiSearch } from 'react-icons/bi'
 import { getSearchWordApi } from 'services/search'
+import { useMount } from 'react-use'
 
 const App = () => {
-  const [keyword, setKeyword] = useState('')
-  const [keyItems, setKeyItems] = useState<ISearchData[]>([])
+  const [searchText, setSearchText] = useState('')
 
-  const handleDataChange = (e: React.FormEvent<HTMLInputElement>) => {
-    setKeyword(e.currentTarget.value)
+  const handleDataChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.currentTarget.value)
   }
 
-  useEffect(() => {
-    getSearchWordApi({ searchText: keyword })
-      .then((res) => res.data)
-      .then((data) => console.log(data))
-  }, [keyword])
+  const handleDataSubmit = () => {
+    refetch()
+  }
+
+  useMount(() => {
+    if (!searchText) return
+    handleDataSubmit()
+  })
+
+  const { data, refetch } = useQuery(
+    ['getSearchWordApi', searchText],
+    () => getSearchWordApi({ searchText }).then((res) => res.data.response.body.items.item),
+    { refetchOnWindowFocus: false, useErrorBoundary: true }
+  )
+
+  // useEffect(() => {
+  //   getSearchWordApi({ searchText: keyword })
+  //     .then((res) => res.data)
+  //     .then((data) => console.log(data))
+  // }, [keyword])
 
   return (
     <main className={styles.app}>
@@ -28,22 +41,26 @@ const App = () => {
         온라인으로 참여하기
       </h1>
       <div className={styles.container}>
-        <div className={styles.searchWrap}>
-          <form>
+        <section className={styles.searchWrap}>
+          <form onSubmit={handleDataSubmit}>
             <BiSearch className={styles.searchIcon} />
-            <input type='text' value={keyword} placeholder='질환명을 입력해주세요' onChange={handleDataChange} />
+            <input type='text' value={searchText} placeholder='질환명을 입력해주세요' onChange={handleDataChange} />
           </form>
           <button type='button' className={styles.searchBtn}>
             검색
           </button>
-        </div>
-        <ul className={styles.resultWrap}>
-          <li className={styles.searchTitle}>추천 검색어</li>
-          <li className={styles.resultList}>
-            <BiSearch className={styles.searchIcon} />
-            <span className={styles.recommendItem}>추천 내용</span>
-          </li>
-        </ul>
+        </section>
+        <section>
+          <ul className={styles.resultWrap}>
+            <li className={styles.resultTitle}>추천 검색어</li>
+            {data?.map((item) => {
+              ;<li className={styles.resultList}>
+                <BiSearch className={styles.searchIcon} />
+                <span className={styles.recommendItem}>{item.sickNm}</span>
+              </li>
+            })}
+          </ul>
+        </section>
       </div>
     </main>
   )

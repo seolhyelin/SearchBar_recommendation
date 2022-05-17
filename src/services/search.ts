@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ISearchData } from 'types/search.d'
+import { ISearchData, IDiseaseData } from 'types/search.d'
 
 const SEARCH_URL = '/B551182/diseaseInfoService/getDissNameCodeList'
 
@@ -8,10 +8,11 @@ interface Params {
 }
 
 export const getSearchWordApi = (params: Params) => {
-  return axios.get<ISearchData>(SEARCH_URL, {
+  return axios.get<IDiseaseData>(SEARCH_URL, {
     params: {
       ...params,
-      ServiceKey: process.env.REACT_APP_SEARCHWORD_KEY,
+      serviceKey: process.env.REACT_APP_SEARCHWORD_KEY,
+      pageNo: 1,
       numOfRows: '10',
       sickType: '1',
       medTp: '2',
